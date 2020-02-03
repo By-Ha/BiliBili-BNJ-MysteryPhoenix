@@ -1,0 +1,59 @@
+/* ---- 
+# MysteryPhoenix
+# By: By_Ha
+---- */
+Dim nowx,nowy,empx,empy
+Dim empXid, empYid
+empXid = 3
+empYid = 4
+Function get(b, a)
+    nowx = a * 150 + 600
+    nowy = b * 130 + 300
+    empx = empXid * 150 + 600
+    empy = empYid * 130 + 300
+    empXid = a
+    empYid = b
+End Function
+Function SMove(endX,endY,moveTime,beginX,beginY,sense)
+    dim mx
+    dim x,y
+    dim tx,ty
+    x=beginX
+    y=beginY
+    tx=abs(x-endX)
+    ty=abs(y-endY)
+    if tx>=ty
+        mx=tx
+    else
+        mx=ty
+    end if
+    if mx>0
+        for i = 0 to mx step sense
+            sx=int((endX*i+x*(mx-i))/mx)
+            sy=int((endY*i+y*(mx-i))/mx)
+            moveto sx,sy
+            delay int(moveTime/mx*sense)
+        Next
+    else
+        delay moveTime
+    end if
+    MoveTo endX, endY
+    SMove=true
+End Function
+Function move()
+    MoveTo nowx, nowy
+    LeftDown 1
+    SMove empx, empy, 20, nowx, nowy, 100
+    /*漏移请调整这里的参数20和100*/
+    MoveTo empx, empy
+    LeftUp 1
+    Delay 10
+    /*漏移请调整这里的参数10*/
+End Function
+MoveTo 3 * 150 + 600, 4* 130 + 300
+/*请根据实际调整下面的移动操作*/
+/*
+get 4, 4
+move
+...
+*/
